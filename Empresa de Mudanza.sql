@@ -1,42 +1,21 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     14/06/2021 12:09:15                          */
+/* Created on:     06/07/2021 15:57:30                          */
 /*==============================================================*/
 
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('CLIENTE') and o.name = 'FK_CLIENTE_SERVICIO__SERVICIO')
-alter table CLIENTE
-   drop constraint FK_CLIENTE_SERVICIO__SERVICIO
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('COSTO_ESTIMADO') and o.name = 'FK_COSTO_ES_COSTO_EST_VEHICULO')
-alter table COSTO_ESTIMADO
-   drop constraint FK_COSTO_ES_COSTO_EST_VEHICULO
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('EMPLEADO') and o.name = 'FK_EMPLEADO_EMPLEADO__EMPRESA')
+   where r.fkeyid = object_id('EMPLEADO') and o.name = 'FK_EMPLEADO_EMPRESA_E_EMPRESA')
 alter table EMPLEADO
-   drop constraint FK_EMPLEADO_EMPLEADO__EMPRESA
+   drop constraint FK_EMPLEADO_EMPRESA_E_EMPRESA
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('EMPLEADO') and o.name = 'FK_EMPLEADO_PAGO_EMPL_PAGO')
-alter table EMPLEADO
-   drop constraint FK_EMPLEADO_PAGO_EMPL_PAGO
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('INFORMACION_DESTINO') and o.name = 'FK_INFORMAC_SOLICITUD_SOLICITU')
-alter table INFORMACION_DESTINO
-   drop constraint FK_INFORMAC_SOLICITUD_SOLICITU
+   where r.fkeyid = object_id('MANTENIMIENTO') and o.name = 'FK_MANTENIM_MANTENIMI_VEHICULO')
+alter table MANTENIMIENTO
+   drop constraint FK_MANTENIM_MANTENIMI_VEHICULO
 go
 
 if exists (select 1
@@ -48,16 +27,9 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('PERSONAL_EXTRA_SERVICIO_ADICIONAL') and o.name = 'FK_PERSONAL_PERSONAL__SERVICIO')
-alter table PERSONAL_EXTRA_SERVICIO_ADICIONAL
+   where r.fkeyid = object_id('PERSONAL_EXTRA') and o.name = 'FK_PERSONAL_PERSONAL__SERVICIO')
+alter table PERSONAL_EXTRA
    drop constraint FK_PERSONAL_PERSONAL__SERVICIO
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('PERSONAL_EXTRA_SERVICIO_ADICIONAL') and o.name = 'FK_PERSONAL_PERSONAL__PERSONAL')
-alter table PERSONAL_EXTRA_SERVICIO_ADICIONAL
-   drop constraint FK_PERSONAL_PERSONAL__PERSONAL
 go
 
 if exists (select 1
@@ -69,9 +41,16 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SERVICIO') and o.name = 'FK_SERVICIO_VEHICULO__VEHICULO')
+   where r.fkeyid = object_id('SERVICIO') and o.name = 'FK_SERVICIO_EMPLEADO__EMPLEADO')
 alter table SERVICIO
-   drop constraint FK_SERVICIO_VEHICULO__VEHICULO
+   drop constraint FK_SERVICIO_EMPLEADO__EMPLEADO
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('SERVICIO') and o.name = 'FK_SERVICIO_SERVICIO__PAGO')
+alter table SERVICIO
+   drop constraint FK_SERVICIO_SERVICIO__PAGO
 go
 
 if exists (select 1
@@ -83,6 +62,13 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('SOLICITUD') and o.name = 'FK_SOLICITU_SERVICIO__SERVICIO')
+alter table SOLICITUD
+   drop constraint FK_SOLICITU_SERVICIO__SERVICIO
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
    where r.fkeyid = object_id('SOLICITUD') and o.name = 'FK_SOLICITU_SOLICITUD_SERVICIO')
 alter table SOLICITUD
    drop constraint FK_SOLICITU_SOLICITUD_SERVICIO
@@ -90,25 +76,23 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SOLICITUD') and o.name = 'FK_SOLICITU_SOLICITUD_TRASLADO')
-alter table SOLICITUD
-   drop constraint FK_SOLICITU_SOLICITUD_TRASLADO
+   where r.fkeyid = object_id('TRASLADO') and o.name = 'FK_TRASLADO_TRASLADO__SERVICIO')
+alter table TRASLADO
+   drop constraint FK_TRASLADO_TRASLADO__SERVICIO
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('VEHICULO') and o.name = 'FK_VEHICULO_VEHICULO__MANTENIM')
-alter table VEHICULO
-   drop constraint FK_VEHICULO_VEHICULO__MANTENIM
+   where r.fkeyid = object_id('VEHICULO_SERVICIO') and o.name = 'FK_VEHICULO_VEHICULO__SERVICIO')
+alter table VEHICULO_SERVICIO
+   drop constraint FK_VEHICULO_VEHICULO__SERVICIO
 go
 
 if exists (select 1
-            from  sysindexes
-           where  id    = object_id('CLIENTE')
-            and   name  = 'SERVICIO_ADISIONAL_CLIENTE_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index CLIENTE.SERVICIO_ADISIONAL_CLIENTE_FK
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('VEHICULO_SERVICIO') and o.name = 'FK_VEHICULO_VEHICULO__VEHICULO')
+alter table VEHICULO_SERVICIO
+   drop constraint FK_VEHICULO_VEHICULO__VEHICULO
 go
 
 if exists (select 1
@@ -120,36 +104,11 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('COSTO_ESTIMADO')
-            and   name  = 'COSTO_ESTIMADO_VEHICULO_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index COSTO_ESTIMADO.COSTO_ESTIMADO_VEHICULO_FK
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('COSTO_ESTIMADO')
-            and   type = 'U')
-   drop table COSTO_ESTIMADO
-go
-
-if exists (select 1
-            from  sysindexes
            where  id    = object_id('EMPLEADO')
-            and   name  = 'EMPLEADO_EMPRESA_FK'
+            and   name  = 'EMPRESA_EMPLEADO_FK'
             and   indid > 0
             and   indid < 255)
-   drop index EMPLEADO.EMPLEADO_EMPRESA_FK
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('EMPLEADO')
-            and   name  = 'PAGO_EMPLEADO_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index EMPLEADO.PAGO_EMPLEADO_FK
+   drop index EMPLEADO.EMPRESA_EMPLEADO_FK
 go
 
 if exists (select 1
@@ -168,18 +127,11 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('INFORMACION_DESTINO')
-            and   name  = 'SOLICITUD_INFORMACION_DESTINO_FK'
+           where  id    = object_id('MANTENIMIENTO')
+            and   name  = 'MANTENIMIENRO_VEHICULO_FK'
             and   indid > 0
             and   indid < 255)
-   drop index INFORMACION_DESTINO.SOLICITUD_INFORMACION_DESTINO_FK
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('INFORMACION_DESTINO')
-            and   type = 'U')
-   drop table INFORMACION_DESTINO
+   drop index MANTENIMIENTO.MANTENIMIENRO_VEHICULO_FK
 go
 
 if exists (select 1
@@ -213,44 +165,19 @@ if exists (select 1
 go
 
 if exists (select 1
+            from  sysindexes
+           where  id    = object_id('PERSONAL_EXTRA')
+            and   name  = 'PERSONAL_EXTRA_SERVICIOADICIONAL_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index PERSONAL_EXTRA.PERSONAL_EXTRA_SERVICIOADICIONAL_FK
+go
+
+if exists (select 1
             from  sysobjects
            where  id = object_id('PERSONAL_EXTRA')
             and   type = 'U')
    drop table PERSONAL_EXTRA
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('PERSONAL_EXTRA_SERVICIO_ADICIONAL')
-            and   name  = 'PERSONAL_EXTRA_SERVICIO_ADICIONAL_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index PERSONAL_EXTRA_SERVICIO_ADICIONAL.PERSONAL_EXTRA_SERVICIO_ADICIONAL_FK
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('PERSONAL_EXTRA_SERVICIO_ADICIONAL')
-            and   name  = 'PERSONAL_EXTRA_SERVICIO_ADICIONAL2_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index PERSONAL_EXTRA_SERVICIO_ADICIONAL.PERSONAL_EXTRA_SERVICIO_ADICIONAL2_FK
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('PERSONAL_EXTRA_SERVICIO_ADICIONAL')
-            and   type = 'U')
-   drop table PERSONAL_EXTRA_SERVICIO_ADICIONAL
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('SERVICIO')
-            and   name  = 'VEHICULO_SERVICIO_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index SERVICIO.VEHICULO_SERVICIO_FK
 go
 
 if exists (select 1
@@ -263,6 +190,24 @@ if exists (select 1
 go
 
 if exists (select 1
+            from  sysindexes
+           where  id    = object_id('SERVICIO')
+            and   name  = 'EMPLEADO_SERVICIO_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index SERVICIO.EMPLEADO_SERVICIO_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('SERVICIO')
+            and   name  = 'SERVICIO_COSTO_ESTIMADO_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index SERVICIO.SERVICIO_COSTO_ESTIMADO_FK
+go
+
+if exists (select 1
             from  sysobjects
            where  id = object_id('SERVICIO')
             and   type = 'U')
@@ -271,18 +216,18 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SERVICIO_ADISIONAL')
+           where  id = object_id('SERVICIO_ADICIONAL')
             and   type = 'U')
-   drop table SERVICIO_ADISIONAL
+   drop table SERVICIO_ADICIONAL
 go
 
 if exists (select 1
             from  sysindexes
            where  id    = object_id('SOLICITUD')
-            and   name  = 'SOLICITUD_TRASLADO_FK'
+            and   name  = 'SERVICIO_ADISIONAL_SOLICITUD_FK'
             and   indid > 0
             and   indid < 255)
-   drop index SOLICITUD.SOLICITUD_TRASLADO_FK
+   drop index SOLICITUD.SERVICIO_ADISIONAL_SOLICITUD_FK
 go
 
 if exists (select 1
@@ -311,19 +256,19 @@ if exists (select 1
 go
 
 if exists (select 1
+            from  sysindexes
+           where  id    = object_id('TRASLADO')
+            and   name  = 'TRASLADO_SERVICIO_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index TRASLADO.TRASLADO_SERVICIO_FK
+go
+
+if exists (select 1
             from  sysobjects
            where  id = object_id('TRASLADO')
             and   type = 'U')
    drop table TRASLADO
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('VEHICULO')
-            and   name  = 'VEHICULO_MANTENIMIENTO_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index VEHICULO.VEHICULO_MANTENIMIENTO_FK
 go
 
 if exists (select 1
@@ -333,13 +278,37 @@ if exists (select 1
    drop table VEHICULO
 go
 
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('VEHICULO_SERVICIO')
+            and   name  = 'VEHICULO_SERVICIO_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index VEHICULO_SERVICIO.VEHICULO_SERVICIO_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('VEHICULO_SERVICIO')
+            and   name  = 'VEHICULO_SERVICIO2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index VEHICULO_SERVICIO.VEHICULO_SERVICIO2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('VEHICULO_SERVICIO')
+            and   type = 'U')
+   drop table VEHICULO_SERVICIO
+go
+
 /*==============================================================*/
 /* Table: CLIENTE                                               */
 /*==============================================================*/
 create table CLIENTE (
    ID_CLIENTE           int                  not null,
-   ID_SERVICIO_ADD      int                  null,
-   CEDULA_INDENT_CLIENTE int                  not null,
+   CEDULA_INDENT_CLIENTE varchar(10)          not null,
    NOMBRE_CLIENTE       varchar(20)          not null,
    APELLIDOS_CLIENTE    varchar(20)          not null,
    CELULAR              varchar(10)          not null,
@@ -349,109 +318,63 @@ create table CLIENTE (
 )
 go
 
-insert into CLIENTE(ID_CLIENTE,ID_SERVICIO_ADD,CEDULA_INDENT_CLIENTE,NOMBRE_CLIENTE,APELLIDOS_CLIENTE,CELULAR,CORREO_CLIENTE,CIUDAD) 
-values (1,1,1314506897,'Miguel Angel','Sánchez Arteaga','0987563214','themiguel50.@gmail.com','Manta');
-insert into CLIENTE(ID_CLIENTE,ID_SERVICIO_ADD,CEDULA_INDENT_CLIENTE,NOMBRE_CLIENTE,APELLIDOS_CLIENTE,CELULAR,CORREO_CLIENTE,CIUDAD) 
-values (2,2,1314506868,'Paola María','Macias Lopez','0987563458','porhub.@gmail.com','Portoviejo');
-insert into CLIENTE(ID_CLIENTE,ID_SERVICIO_ADD,CEDULA_INDENT_CLIENTE,NOMBRE_CLIENTE,APELLIDOS_CLIENTE,CELULAR,CORREO_CLIENTE,CIUDAD) 
-values (3,3,1314506824,'Maria José','Macias Macias','0952798564','redtube.@gmail.com','Portoviejo');
-insert into CLIENTE(ID_CLIENTE,ID_SERVICIO_ADD,CEDULA_INDENT_CLIENTE,NOMBRE_CLIENTE,APELLIDOS_CLIENTE,CELULAR,CORREO_CLIENTE,CIUDAD) 
-values (4,4,1307931564,'Daniel Arquimides','Sánchez Bailón','0956236978','redtube.@gmail.com','Portoviejo');
-
-
-/*==============================================================*/
-/* Index: SERVICIO_ADISIONAL_CLIENTE_FK                         */
-/*==============================================================*/
-create index SERVICIO_ADISIONAL_CLIENTE_FK on CLIENTE (
-ID_SERVICIO_ADD ASC
-)
-go
-
-/*==============================================================*/
-/* Table: COSTO_ESTIMADO                                        */
-/*==============================================================*/
-create table COSTO_ESTIMADO (
-   ID_COSTO             int                  not null,
-   ID_VEHICULO          int                  null,
-   KILOMETRO            varchar(20)          not null,
-   HORA                 time             not null,
-   COSTO_KILOMETRO_H    numeric(6,2)         not null,
-   constraint PK_COSTO_ESTIMADO primary key nonclustered (ID_COSTO)
-)
-go
-
-insert into COSTO_ESTIMADO (ID_COSTO, ID_VEHICULO, KILOMETRO, HORA, COSTO_KILOMETRO_H)
-values (1, 1,'10.000','08:00','150.00')
-insert into COSTO_ESTIMADO (ID_COSTO, ID_VEHICULO, KILOMETRO, HORA, COSTO_KILOMETRO_H)
-values (2, 2,'20.000','15:00','200.00')
-insert into COSTO_ESTIMADO (ID_COSTO, ID_VEHICULO, KILOMETRO, HORA, COSTO_KILOMETRO_H)
-values (3, 3,'15.000','10:00','10.00')
-insert into COSTO_ESTIMADO (ID_COSTO, ID_VEHICULO, KILOMETRO, HORA, COSTO_KILOMETRO_H)
-values (4, 4,'50.000','22:00','150.00')
-
-
-/*==============================================================*/
-/* Index: COSTO_ESTIMADO_VEHICULO_FK                            */
-/*==============================================================*/
-create index COSTO_ESTIMADO_VEHICULO_FK on COSTO_ESTIMADO (
-ID_VEHICULO ASC
-)
-go
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(1,'1316369170','Miguel Angel','Sánchez Arteaga','0993209428','Themigueldj@gmail.com','Manta');
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(2,'1316369189','José Antonio','Sánchez Arteaga','0993209456','Triplej@gmail.com','Manta');
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(3,'1316313588','Daniela Marianela','Sánchez Arteaga','0993205236','dani1997_sa@gmail.com','Portoviejo');
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(4,'1352356870','Silvia Jenny','Arteaga Murillo','0956892345','silvia_4578@gmail.com','Portoviejo');
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(5,'1316369171','Miguel Angel','Sánchez Bailón','0945697823','arquiides6910@hotmail.com','Montecristi');
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(6,'1302336987','María Viviana','Preciado Delgado','0956893214','mariap@gmail.com','Daule');
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(7,'1306147176','Anibal Celestino','Figueroa Ponce','0945962323','anibaltripH@gmail.com','Durán');
+insert into CLIENTE(ID_CLIENTE, CEDULA_INDENT_CLIENTE, NOMBRE_CLIENTE, APELLIDOS_CLIENTE, CELULAR, CORREO_CLIENTE, CIUDAD)
+values(8,'1316963124','Patricio David','Bazurto Carrazco','0993532147','patricio23@gmail.com','Quito');
 
 /*==============================================================*/
 /* Table: EMPLEADO                                              */
 /*==============================================================*/
 create table EMPLEADO (
    ID_EMPLEADO          int                  not null,
-   ID_PAGO              int                  null,
    ID_EMPRESA           int                  null,
-   CEDULA_IDENTIDAD_EMPLEADO int                  not null,
-   NOMBRES_EMPLEADO     varchar(25)          not null,
-   APELLIDOS_EMPLEADO   varchar(25)          not null,
+   CEDULA_IDENTIDAD_EMPLEADO varchar(10)          not null,
+   NOMBRES_EMPLEADO     varchar(30)          not null,
+   APELLIDOS_EMPLEADO   varchar(30)          not null,
    CELULAR_EMPLEADO     varchar(10)          not null,
    CORREO_EMPLEADO      varchar(30)          not null,
-   CUIDAD_EMPLEADO      varchar(20)          not null,
+   CUIDAD_EMPLEADO      varchar(30)          not null,
    DIRECCION_EMPLEADO   varchar(40)          not null,
    TIPO_EMPLEADO        varchar(20)          not null,
    constraint PK_EMPLEADO primary key nonclustered (ID_EMPLEADO)
 )
 go
 
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (1, 1, 1, 1316352697,'Carlos Celestino','Cañarte Hidalgo','0956789523','carcañarte@gmail.com','Manta','Barrio Cuba','Chofer')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (2, 2, 2, 1355009852,'Anibal Grorioso','Figueroa Ponce','0956327064','Anibal1956@gmail.com','Manta','Las Orquideas','Copiloto')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (3, 3, 3, 1304603610,'Pablo Emilio ','Escobar Gaviria','0980804040','colombia1995@gmail.com','Manta','Barrio Cuba','Chofer')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (4, 4, 4, 1354060789,'Pedro Pablo','León Jaramillo','0980030257','elcapo@gmail.com','Montecristi','Los Bajos','Mulero')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (5, 5, 5, 1308963031,'Miguel José','Sánchez Arteaga','0945236952','miguel5026@gmail.com','Portoviejo','El Floron','Copiloto')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (6, 6, 6, 1352036971,'Carlos Celestino','Cañarte Hidalgo','0956789523','hcarlos56@gmail.com','Manta','15 de Abril','Mulero')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (7, 7, 7, 1313010569,'Jose Alberto','Ponce Carrasco','0901203100','carrascojose@gmail.com','Manta','20 de Mayo','Chofer')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (8, 8, 8, 1305063697,'Byron Jesus','Lopez Tigua','0978965412','byron_l2005@htmail.ec','Montecristi','Anibal San Andres','Chofer')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (9, 9, 9, 1337896231,'Iker Alexis','Figueroa Macias','0950507078','alexisanchez@live.edu.ec','Manta','Barrio 7 Puñaladas','Chofer')
-insert into EMPLEADO(ID_EMPLEADO, ID_PAGO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
-values (10, 10, 10, 1358086705,'Melanie Nicole','Morejon Valdiviezo','0930405060','lacariñosita@gmail.com','Manta','Urbirios','Copiloto')
-
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(1,1,'1326369170','Angel José','Moreno Ganchoso','0956231478','ganchoso@gmail.com','Manta','Barrio Cuba','Chofer');
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(2,1,'1312365986','Bryan David','Ganzabay Estrada','0940569740','gonzabay@gmail.com','Manta','Las Cumbres','Secretaria');
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(3,1,'1356321456','Frank Andres','Rosales Hurtado','0913469755','lacosita@gmail.com','Manta','15 de Abril','Chofer');
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(4,1,'1311236548','Jonath Maximiliano','Molona Zamora','0956200478','Maximiliano4k@hotmail.com','Manta','15 de Sept','Chofer');
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(5,1,'1334032145','Adan Roberto','LLerena Chuquimarca','0989745632','chuquimarca@gmail.com','Manta','Barrio Jipijapa','Mulero');
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(6,1,'1326369450','Nelson Andres','Lopez Soledispa','0900236592','nacho80@gmail.com','Manta','Barrio 6 de Marzo','Mulero');
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(7,1,'1323045698','Juan Andres','Zamora Ponce','0989893265','juandesarma@gmail.com','Manta','Barrio 20 de Mayo','Mecánico');
+insert into EMPLEADO(ID_EMPLEADO, ID_EMPRESA, CEDULA_IDENTIDAD_EMPLEADO, NOMBRES_EMPLEADO, APELLIDOS_EMPLEADO, CELULAR_EMPLEADO, CORREO_EMPLEADO, CUIDAD_EMPLEADO, DIRECCION_EMPLEADO, TIPO_EMPLEADO)
+values(8,1,'1356398741','Gilki Michelle','Delgado Valdiviezo','0914151617','gilki.m@gmail.com','Manta','Bario Urbirios','Copiloto');
 
 
 /*==============================================================*/
-/* Index: PAGO_EMPLEADO_FK                                      */
+/* Index: EMPRESA_EMPLEADO_FK                                   */
 /*==============================================================*/
-create index PAGO_EMPLEADO_FK on EMPLEADO (
-ID_PAGO ASC
-)
-go
-
-/*==============================================================*/
-/* Index: EMPLEADO_EMPRESA_FK                                   */
-/*==============================================================*/
-create index EMPLEADO_EMPRESA_FK on EMPLEADO (
+create index EMPRESA_EMPLEADO_FK on EMPLEADO (
 ID_EMPRESA ASC
 )
 go
@@ -465,68 +388,49 @@ create table EMPRESA (
    DIRECION_EMPRESA     varchar(20)          not null,
    TELEFONO_EMPRESA     varchar(10)          not null,
    CORREO_EMPRESA       varchar(20)          not null,
+   CIUDAD_EMPRESA       varchar(20)          not null,
    constraint PK_EMPRESA primary key nonclustered (ID_EMPRESA)
 )
 go
 
-insert into EMPRESA(ID_EMPRESA, NOMBRE_EMPRESA, DIRECION_EMPRESA, TELEFONO_EMPRESA, CORREO_EMPRESA)
-values(1, 'Los Santos','Manta-20 de Mayo','0920314578','thesantos@gmail.com')
+insert into EMPRESA(ID_EMPRESA, NOMBRE_EMPRESA, DIRECION_EMPRESA, TELEFONO_EMPRESA, CORREO_EMPRESA, CIUDAD_EMPRESA)
+values(1,'Los Santos','Barrio Cuba','0992003212','thesantos@live.ec','Manta');
 
-/*==============================================================*/
-/* Table: INFORMACION_DESTINO                                   */
-/*==============================================================*/
-create table INFORMACION_DESTINO (
-   ID_DESTINO           int                  not null,
-   ID_SOLICITUD         int                  null,
-   PROVINCIA            varchar(20)          not null,
-   CANTON               varchar(20)          not null,
-   PAIS                 varchar(20)          not null,
-   constraint PK_INFORMACION_DESTINO primary key nonclustered (ID_DESTINO)
-)
-go
-
-insert into INFORMACION_DESTINO(ID_DESTINO,ID_SOLICITUD, PROVINCIA, CANTON, PAIS)
-values(1, 1,'Manabi','Manta','Ecuador')
-insert into INFORMACION_DESTINO(ID_DESTINO, ID_SOLICITUD, PROVINCIA, CANTON, PAIS)
-values(2, 2,'Guayas','Guayaquil','Ecuador')
-insert into INFORMACION_DESTINO(ID_DESTINO, ID_SOLICITUD, PROVINCIA, CANTON, PAIS)
-values(3, 3,'Pichincha','Quito','Ecuador')
-insert into INFORMACION_DESTINO(ID_DESTINO, ID_SOLICITUD, PROVINCIA, CANTON, PAIS)
-values(4, 4,'Guayas','Sause','Ecuador')
-insert into INFORMACION_DESTINO(ID_DESTINO, ID_SOLICITUD, PROVINCIA, CANTON, PAIS)
-values(5, 5,'Manabi','Portoviejo','Ecuador')
-
-/*==============================================================*/
-/* Index: SOLICITUD_INFORMACION_DESTINO_FK                      */
-/*==============================================================*/
-create index SOLICITUD_INFORMACION_DESTINO_FK on INFORMACION_DESTINO (
-ID_SOLICITUD ASC
-)
-go
 
 /*==============================================================*/
 /* Table: MANTENIMIENTO                                         */
 /*==============================================================*/
 create table MANTENIMIENTO (
    ID_MANTENIMIENTO     int                  not null,
-   FECHA_INICIO_MANT    varchar(15)          not null,
+   ID_VEHICULO          int                  null,
+   TIPO_MANT            varchar(30)          null,
+   FECHA_INICIO_MANT    date             not null,
    FECHA_FIN_MANT       date             not null,
-   HORA_INICIO_MANT     time             not null,
+   NUMERO_MANT          varchar(10)          not null,
    constraint PK_MANTENIMIENTO primary key nonclustered (ID_MANTENIMIENTO)
 )
 go
 
-insert into MANTENIMIENTO(ID_MANTENIMIENTO, FECHA_INICIO_MANT, FECHA_FIN_MANT, HORA_INICIO_MANT)
-values(1,'16/11/2016','17/11/2016','09:00');
-insert into MANTENIMIENTO(ID_MANTENIMIENTO, FECHA_INICIO_MANT, FECHA_FIN_MANT, HORA_INICIO_MANT)
-values(2,'20/05/2016','15/07/2016','22:00')
-insert into MANTENIMIENTO(ID_MANTENIMIENTO, FECHA_INICIO_MANT, FECHA_FIN_MANT, HORA_INICIO_MANT)
-values(3,'24/12/2016','30/12/2016','15:00')
-insert into MANTENIMIENTO(ID_MANTENIMIENTO, FECHA_INICIO_MANT, FECHA_FIN_MANT, HORA_INICIO_MANT)
-values(4,'31/12/2016','01/01/2017','00:00')
-insert into MANTENIMIENTO(ID_MANTENIMIENTO, FECHA_INICIO_MANT, FECHA_FIN_MANT, HORA_INICIO_MANT)
-values(5,'05/11/2016','10/11/2016','10:00')
+insert into MANTENIMIENTO(ID_MANTENIMIENTO, ID_VEHICULO, TIPO_MANT, FECHA_INICIO_MANT, FECHA_FIN_MANT, NUMERO_MANT)
+values (1, 1, 'Abc del Motor','16/11/2017','10/01/2018','5');
+insert into MANTENIMIENTO(ID_MANTENIMIENTO, ID_VEHICULO, TIPO_MANT, FECHA_INICIO_MANT, FECHA_FIN_MANT, NUMERO_MANT)
+values (2, 2, 'Cambio de aceite','20/12/2017','20/12/2017','2');
+insert into MANTENIMIENTO(ID_MANTENIMIENTO, ID_VEHICULO, TIPO_MANT, FECHA_INICIO_MANT, FECHA_FIN_MANT, NUMERO_MANT)
+values (3, 3, 'Cambio de llantas','25/07/2017','25/07/2017','8');
+insert into MANTENIMIENTO(ID_MANTENIMIENTO, ID_VEHICULO, TIPO_MANT, FECHA_INICIO_MANT, FECHA_FIN_MANT, NUMERO_MANT)
+values (4, 4, 'Cambio de Bujias','1/07/2017','1/07/2017','1');
+insert into MANTENIMIENTO(ID_MANTENIMIENTO, ID_VEHICULO, TIPO_MANT, FECHA_INICIO_MANT, FECHA_FIN_MANT, NUMERO_MANT)
+values (5, 5, 'Arreglo de Guias','15/05/2017','15/05/2017','5');
+insert into MANTENIMIENTO(ID_MANTENIMIENTO, ID_VEHICULO, TIPO_MANT, FECHA_INICIO_MANT, FECHA_FIN_MANT, NUMERO_MANT)
+values (6, 5, 'Cambio de llantas','04/10/20','10/04/2019','20');
 
+/*==============================================================*/
+/* Index: MANTENIMIENRO_VEHICULO_FK                             */
+/*==============================================================*/
+create index MANTENIMIENRO_VEHICULO_FK on MANTENIMIENTO (
+ID_VEHICULO ASC
+)
+go
 
 /*==============================================================*/
 /* Table: OBSERVACION                                           */
@@ -534,25 +438,31 @@ values(5,'05/11/2016','10/11/2016','10:00')
 create table OBSERVACION (
    ID_OBSERVACION       int                  not null,
    ID_CLIENTE           int                  null,
-   ID_EMPLEADO          int                  null,
-   NUMERO_SASTIFECHO    varchar(10)          not null,
-   NUMERO_INSASTIFECHO  varchar(30)          not null,
-   FECHA_OB             date                 not null,
-   GRUPO                varchar(30)          not null,    
+   CALIFICACION			varchar(10)          not null,
+   OPINION			    varchar(20)          not null,
+   FECHA_OB             date             not null,
    constraint PK_OBSERVACION primary key nonclustered (ID_OBSERVACION)
 )
 go
 
-insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE,ID_EMPLEADO, NUMERO_SASTIFECHO, NUMERO_INSASTIFECHO,FECHA_OB,GRUPO)
-values(1,1,1,'8','1','16/11/2016','#1');
-insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE,ID_EMPLEADO, NUMERO_SASTIFECHO, NUMERO_INSASTIFECHO,FECHA_OB,GRUPO)
-values(2,2,2,'10','5','20/05/2016','#2');
-insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE,ID_EMPLEADO, NUMERO_SASTIFECHO, NUMERO_INSASTIFECHO,FECHA_OB,GRUPO)
-values(3,3,3,'6','2','05/06/2016','#3');
-insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE,ID_EMPLEADO, NUMERO_SASTIFECHO, NUMERO_INSASTIFECHO,FECHA_OB,GRUPO)
-values(4,4,4,'2','2','25/12/2016','#4');
-insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE,ID_EMPLEADO, NUMERO_SASTIFECHO, NUMERO_INSASTIFECHO,FECHA_OB,GRUPO)
-values(5,5,5,'20','3','15/08/2016','#5');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(1, 1, '8','BUENO','15/08/2017');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(2, 2, '8','BUENO','25/05/2017');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(3, 3, '10','EXCELENTE','12/01/2019');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(4, 4, '7','BUENO','10/07/2017');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(5, 5, '10','EXCELENTE','13/07/2017');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(5, 5, '10','EXCELENTE','13/07/2017');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(6, 6, '9','MUY BUENO','18/09/2017');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(7, 7, '8','BUENO','10/12/2019');
+insert into OBSERVACION(ID_OBSERVACION, ID_CLIENTE, CALIFICACION, OPINION, FECHA_OB)
+values(8, 8, '5','REGULAR','25/12/2017');
 
 
 /*==============================================================*/
@@ -568,96 +478,61 @@ go
 /*==============================================================*/
 create table PAGO (
    ID_PAGO              int                  not null,
-   PAGO                 numeric(6,2)         not null,
-   FECHA_PAGO           date                 not null,
+   KILOMETRO            varchar(20)          not null,
+   HORA                 time             not null,
+   COSTO_KILOMETRO_H    numeric(6,2)         not null,
+   FECHA                date             not null,
    constraint PK_PAGO primary key nonclustered (ID_PAGO)
 )
 go
 
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(1,370,'31/01/2016');
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(3,370,'31/03/2016');
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(4,370,'31/04/2016');
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(5,370,'31/05/2016');
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(6,370,'31/06/2016')
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(7,370,'31/07/2016')
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(8,370,'31/08/2016')
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(9,370,'31/09/2016')
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(10,370,'31/10/2016')
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(11,370,'31/11/2016')
-insert into PAGO(ID_PAGO, PAGO, FECHA_PAGO)
-values(12,370,'29/12/2016')
+insert into PAGO(ID_PAGO, KILOMETRO, HORA, COSTO_KILOMETRO_H, FECHA)
+values (1,'50.00 km','9:00',5,'25/12/2017');
+insert into PAGO(ID_PAGO, KILOMETRO, HORA, COSTO_KILOMETRO_H, FECHA)
+values (2,'10.00 km','15:00',5,'15/11/2017');
+insert into PAGO(ID_PAGO, KILOMETRO, HORA, COSTO_KILOMETRO_H, FECHA)
+values (3,'70.00 km','8:00',5,'05/11/2019');
+insert into PAGO(ID_PAGO, KILOMETRO, HORA, COSTO_KILOMETRO_H, FECHA)
+values (5,'80.00 km','11:00',5,'10/05/2018');
+insert into PAGO(ID_PAGO, KILOMETRO, HORA, COSTO_KILOMETRO_H, FECHA)
+values (6,'15.00 km','14:00',5,'01/02/2017');
+insert into PAGO(ID_PAGO, KILOMETRO, HORA, COSTO_KILOMETRO_H, FECHA)
+values (7,'80.00 km','15:00',5,'13/07/2017');
+insert into PAGO(ID_PAGO, KILOMETRO, HORA, COSTO_KILOMETRO_H, FECHA)
+values (8,'40.00 km','12:00',5,'25/12/2018');
+
+
 
 /*==============================================================*/
 /* Table: PERSONAL_EXTRA                                        */
 /*==============================================================*/
 create table PERSONAL_EXTRA (
    ID_PERSONAL          int                  not null,
-   CEDULA_PERSONAL      int                  not null,
-   NOMBRE_PERSONAL      varchar(20)          not null,
-   APELLIDO_PERSONAL    varchar(20)          not null,
-   FECHA_INGRESO_PERSONAL varchar(10)          not null,
-   FECHA_SALIDA_PERSONAL date             not null,
+   ID_SERVICIO_ADD      int                  null,
+   CEDULA_PERSONAL      varchar(10)          not null,
+   NOMBRE_PERSONAL      varchar(30)          not null,
+   APELLIDO_PERSONAL    varchar(30)          not null,
    CELULAR_PERSONAL     varchar(10)          not null,
    CORREO_PERSONAL      varchar(30)          not null,
-   HORA_INGRESO_PERS    time             not null,
-   HORA_SALDIA_PERS     time             not null,
    constraint PK_PERSONAL_EXTRA primary key nonclustered (ID_PERSONAL)
 )
 go
 
-insert into PERSONAL_EXTRA(ID_PERSONAL, CEDULA_PERSONAL, NOMBRE_PERSONAL,APELLIDO_PERSONAL, FECHA_INGRESO_PERSONAL, FECHA_SALIDA_PERSONAL, CELULAR_PERSONAL, CORREO_PERSONAL, HORA_INGRESO_PERS, HORA_SALDIA_PERS )
-values (1, 1315231064,'Alex Patricio','Pin Parrales','23/05/2016','24/05/2016','0900316597','triplep@gmail.com','08:00','17:00')
-insert into PERSONAL_EXTRA(ID_PERSONAL, CEDULA_PERSONAL, NOMBRE_PERSONAL,APELLIDO_PERSONAL, FECHA_INGRESO_PERSONAL, FECHA_SALIDA_PERSONAL, CELULAR_PERSONAL, CORREO_PERSONAL, HORA_INGRESO_PERS, HORA_SALDIA_PERS )
-values (2, 1308095862,'Carlos Andres','Tubay Zamora','15/11/2016','15/11/2016','0900362275','manene@gmail.com','08:00','12:00')
-insert into PERSONAL_EXTRA(ID_PERSONAL, CEDULA_PERSONAL, NOMBRE_PERSONAL,APELLIDO_PERSONAL, FECHA_INGRESO_PERSONAL, FECHA_SALIDA_PERSONAL, CELULAR_PERSONAL, CORREO_PERSONAL, HORA_INGRESO_PERS, HORA_SALDIA_PERS )
-values (3, 1317139745,'Kevin Alexander','Gonzalez Mera','25/12/2016','25/12/2016','0900316578','alexogomez@gmail.com','08:00','17:00')
-insert into PERSONAL_EXTRA(ID_PERSONAL, CEDULA_PERSONAL, NOMBRE_PERSONAL,APELLIDO_PERSONAL, FECHA_INGRESO_PERSONAL, FECHA_SALIDA_PERSONAL, CELULAR_PERSONAL, CORREO_PERSONAL, HORA_INGRESO_PERS, HORA_SALDIA_PERS )
-values (4, 1350310640,'Luis Alberto','Lascano Cevallos','01/01/2017','02/01/2017','0900000000','tulobita@gmail.com','08:00','17:00')
-insert into PERSONAL_EXTRA(ID_PERSONAL, CEDULA_PERSONAL, NOMBRE_PERSONAL,APELLIDO_PERSONAL, FECHA_INGRESO_PERSONAL, FECHA_SALIDA_PERSONAL, CELULAR_PERSONAL, CORREO_PERSONAL, HORA_INGRESO_PERS, HORA_SALDIA_PERS )
-values (5, 1315232010,'Fernando Emilio','Rosado Moreira','10/12/2016','11/12/2016','0900316597','gissado@gmail.com','08:00','00:00')
-
-
-/*==============================================================*/
-/* Table: PERSONAL_EXTRA_SERVICIO_ADICIONAL                     */
-/*==============================================================*/
-create table PERSONAL_EXTRA_SERVICIO_ADICIONAL (
-   ID_SERVICIO_ADD      int                  not null,
-   ID_PERSONAL          int                  not null,
-   constraint PK_PERSONAL_EXTRA_SERVICIO_ADI primary key nonclustered (ID_SERVICIO_ADD, ID_PERSONAL)
-)
-go
-
-insert into PERSONAL_EXTRA_SERVICIO_ADICIONAL(ID_SERVICIO_ADD, ID_PERSONAL)
-values(1, 1)
-insert into PERSONAL_EXTRA_SERVICIO_ADICIONAL(ID_SERVICIO_ADD, ID_PERSONAL)
-values(2, 2)
-insert into PERSONAL_EXTRA_SERVICIO_ADICIONAL(ID_SERVICIO_ADD, ID_PERSONAL)
-values(3, 3)
-insert into PERSONAL_EXTRA_SERVICIO_ADICIONAL(ID_SERVICIO_ADD, ID_PERSONAL)
-values(4, 4)
+insert into PERSONAL_EXTRA(ID_PERSONAL, ID_SERVICIO_ADD, CEDULA_PERSONAL, NOMBRE_PERSONAL, APELLIDO_PERSONAL,CELULAR_PERSONAL, CORREO_PERSONAL)
+values(1,1,'1357896541','Alex Patricio','Pin Parrales','0925632563','pinpatricio@gmail.com');
+insert into PERSONAL_EXTRA(ID_PERSONAL, ID_SERVICIO_ADD, CEDULA_PERSONAL, NOMBRE_PERSONAL, APELLIDO_PERSONAL,CELULAR_PERSONAL, CORREO_PERSONAL)
+values(2,2,'1338731975','Carlos Andres','Tubay Zamora','0925635050','manene@gmail.com');
+insert into PERSONAL_EXTRA(ID_PERSONAL, ID_SERVICIO_ADD, CEDULA_PERSONAL, NOMBRE_PERSONAL, APELLIDO_PERSONAL,CELULAR_PERSONAL, CORREO_PERSONAL)
+values(3,3,'1308232345','Melanie Nicole','Morejon Valdiezo','0978782563','pulmondearaña23@gmail.com');
+insert into PERSONAL_EXTRA(ID_PERSONAL, ID_SERVICIO_ADD, CEDULA_PERSONAL, NOMBRE_PERSONAL, APELLIDO_PERSONAL,CELULAR_PERSONAL, CORREO_PERSONAL)
+values(4,4,'1353698728','Gilki Michelle','Delgado Valdiviezo','0912356465','pollocrudo@gmail.com');
+insert into PERSONAL_EXTRA(ID_PERSONAL, ID_SERVICIO_ADD, CEDULA_PERSONAL, NOMBRE_PERSONAL, APELLIDO_PERSONAL,CELULAR_PERSONAL, CORREO_PERSONAL)
+values(5,5,'1303145324','Anibal Celestino','Figueroa Sánchez','0925632563','celestino13@gmail.com');
 
 /*==============================================================*/
-/* Index: PERSONAL_EXTRA_SERVICIO_ADICIONAL2_FK                 */
+/* Index: PERSONAL_EXTRA_SERVICIOADICIONAL_FK                   */
 /*==============================================================*/
-create index PERSONAL_EXTRA_SERVICIO_ADICIONAL2_FK on PERSONAL_EXTRA_SERVICIO_ADICIONAL (
-ID_PERSONAL ASC
-)
-go
-
-/*==============================================================*/
-/* Index: PERSONAL_EXTRA_SERVICIO_ADICIONAL_FK                  */
-/*==============================================================*/
-create index PERSONAL_EXTRA_SERVICIO_ADICIONAL_FK on PERSONAL_EXTRA_SERVICIO_ADICIONAL (
+create index PERSONAL_EXTRA_SERVICIOADICIONAL_FK on PERSONAL_EXTRA (
 ID_SERVICIO_ADD ASC
 )
 go
@@ -667,26 +542,54 @@ go
 /*==============================================================*/
 create table SERVICIO (
    ID_SERVICIO          int                  not null,
+   ID_PAGO              int                  null,
+   ID_EMPLEADO          int                  null,
    ID_CLIENTE           int                  null,
-   ID_VEHICULO          int                  null,
-   ID_DESTINO           int                  null,
-   TIPO_SERVICIO        varchar(30)          not null,
+   TIPO_SERVICIO        varchar(45)          not null,
    PRECIO_SERVICIO      numeric(6,2)         not null,
-   FECHA_SERVICIO       date             not null,
-   HORA_SERVICIO        time             not null,
-   PESO__SERVICIO       varchar(15)          not null,
+   FECHA_SERVICIO       date                 not null,
+   PESO__SERVICIO_KL    varchar(30)          not null,
+   VALOR_PESO           numeric(6,2)         not null,
    TOTAL_SERVICIO       numeric(6,2)         not null,
-   IVA_SERVICIO         varchar(15)          not null,
    constraint PK_SERVICIO primary key nonclustered (ID_SERVICIO)
 )
 go
 
-insert into SERVICIO (ID_SERVICIO, ID_CLIENTE, ID_VEHICULO,ID_DESTINO, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, HORA_SERVICIO, PESO__SERVICIO, TOTAL_SERVICIO, IVA_SERVICIO)
-values(1, 1, 1,1, 'Servicio Normal',150.00,'06/11/2016','10:00','1.000 kg', 200.00,'12%')
-insert into SERVICIO (ID_SERVICIO, ID_CLIENTE, ID_VEHICULO,ID_DESTINO, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, HORA_SERVICIO, PESO__SERVICIO, TOTAL_SERVICIO, IVA_SERVICIO)
-values(2, 2, 2,2, 'Servicio Complicado',300.00,'25/11/2016','22:00','15.000 kg', 400.00,'12%');
-insert into SERVICIO (ID_SERVICIO, ID_CLIENTE, ID_VEHICULO,ID_DESTINO, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, HORA_SERVICIO, PESO__SERVICIO, TOTAL_SERVICIO, IVA_SERVICIO)
-values(3, 3, 3,3, 'Servicio Medio complicado',250.00,'15/09/2016','08:00 ','5.000 kl', 300.00,'12%');
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (1, 1, 1, 1,'Traslado de Electrodomestico',200,'23/05/2017','500 kl',50, 445);
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (2, 2, 2, 2,'Traslado de cuadros', 175,'10/11/2017','400 kl',50, 288);
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (3, 3, 3, 3,'Traslado de cuadros', 300,'01/02/2018','600 kl', 50, 550);
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (4, 4, 4, 4,'Traslados de Reliquias', 350,'12/12/2017','650 kl', 50, 575);
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (5, 5, 5, 5,'Traslados de llantas', 400,'12/12/2019','700 kl', 50, 700);
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (6, 6, 6, 6,'Traslados de Articulo de Oficina', 100, '06/07/2017','200 kl', 50, 150);
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (7, 7, 7, 7,'Traslados Comedores de sala', 50,'01/08/2017','100 kl', 50, 50);
+insert into SERVICIO(ID_SERVICIO, ID_PAGO, ID_EMPLEADO, ID_CLIENTE, TIPO_SERVICIO, PRECIO_SERVICIO, FECHA_SERVICIO, PESO__SERVICIO_KL, VALOR_PESO, TOTAL_SERVICIO)
+values (8, 8, 8, 8,'Traslados de sillas', 75,'26/05/2018','150 kl',50, 100);
+
+
+
+
+/*==============================================================*/
+/* Index: SERVICIO_COSTO_ESTIMADO_FK                            */
+/*==============================================================*/
+create index SERVICIO_COSTO_ESTIMADO_FK on SERVICIO (
+ID_PAGO ASC
+)
+go
+
+/*==============================================================*/
+/* Index: EMPLEADO_SERVICIO_FK                                  */
+/*==============================================================*/
+create index EMPLEADO_SERVICIO_FK on SERVICIO (
+ID_EMPLEADO ASC
+)
+go
 
 /*==============================================================*/
 /* Index: CLIENTE_SERVICIO_FK                                   */
@@ -697,39 +600,33 @@ ID_CLIENTE ASC
 go
 
 /*==============================================================*/
-/* Index: VEHICULO_SERVICIO_FK                                  */
+/* Table: SERVICIO_ADICIONAL                                    */
 /*==============================================================*/
-create index VEHICULO_SERVICIO_FK on SERVICIO (
-ID_VEHICULO ASC
-)
-go
-
-/*==============================================================*/
-/* Table: SERVICIO_ADISIONAL                                    */
-/*==============================================================*/
-create table SERVICIO_ADISIONAL (
+create table SERVICIO_ADICIONAL (
    ID_SERVICIO_ADD      int                  not null,
-   HORA_INGESO_ADD      time             not null,
-   HORA_SALIDA_ADD      time             not null,
-   FECHA_SERVICIO_ADD   date             not null,
-   constraint PK_SERVICIO_ADISIONAL primary key nonclustered (ID_SERVICIO_ADD)
+   DIRECCION_SERVICIO_ADD varchar(40)          not null,
+   TIPO_SEVICIO_ADD     varchar(30)          not null,
+   VALOR_SERVICIO_ADD   varchar(40)          not null,
+   constraint PK_SERVICIO_ADICIONAL primary key nonclustered (ID_SERVICIO_ADD)
 )
 go
 
-insert into SERVICIO_ADISIONAL(ID_SERVICIO_ADD, HORA_INGESO_ADD, HORA_SALIDA_ADD, FECHA_SERVICIO_ADD)
-values(1,'08:00','12:00','20/11/2016')
-insert into SERVICIO_ADISIONAL(ID_SERVICIO_ADD, HORA_INGESO_ADD, HORA_SALIDA_ADD, FECHA_SERVICIO_ADD)
-values(2,'09:00','11:30','15/11/2016')
-insert into SERVICIO_ADISIONAL(ID_SERVICIO_ADD, HORA_INGESO_ADD, HORA_SALIDA_ADD, FECHA_SERVICIO_ADD)
-values(3,'15:00','18:00','1/01/2017')
-insert into SERVICIO_ADISIONAL(ID_SERVICIO_ADD, HORA_INGESO_ADD, HORA_SALIDA_ADD, FECHA_SERVICIO_ADD)
-values(4,'10:00','14:00','15/05/2016')
-insert into SERVICIO_ADISIONAL(ID_SERVICIO_ADD, HORA_INGESO_ADD, HORA_SALIDA_ADD, FECHA_SERVICIO_ADD)
-values(5,'07:00','11:00','10/09/2016')
-
-
-
-
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (1, 'Barrio los Chillos','Colocacion de muebles', 50);
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (2, 'Urbanización Puerto Sol','Limpieza de cuadros', 100);
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (3, 'Barrio 7 Puñaladas','Organizacion de Articulos', 200);
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (4, 'Entrada de la 8','Ubicación de reliquias', 1000);
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (5, 'Eventos Yanira','Ubicación de mesas', 150);
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (6, 'Eco-Tire','Ordenar las llantas', 200);
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (7, 'Fiesta Privada','Colocacion de Silas', 80);
+insert into SERVICIO_ADICIONAL (ID_SERVICIO_ADD, DIRECCION_SERVICIO_ADD, TIPO_SEVICIO_ADD, VALOR_SERVICIO_ADD)
+values (8, 'Barrio los Chillos','Limpieza y colocación de cuadros', 500);
 
 
 /*==============================================================*/
@@ -739,27 +636,30 @@ create table SOLICITUD (
    ID_SOLICITUD         int                  not null,
    ID_CLIENTE           int                  null,
    ID_SERVICIO          int                  null,
-   ID_TRASLADO          int                  null,
+   ID_SERVICIO_ADD      int                  null,
    NUMERO_SOLICITUD     varchar(15)          not null,
-   TIPO_SOLICITUD       varchar(30)          not null,
-   FECHA_SOLICITUD      date             not null,
-   HORA_SOLICITUD       time             not null,
-   APROBACION_SOLICITUD varchar(20)          not null,
-   VALOR_SOLICITUD      numeric(6,2)         not null,
+   TIPO_SOLICITUD       varchar(20)          not null,
+   FECHA_SOLICITUD      datetime             not null,
    constraint PK_SOLICITUD primary key nonclustered (ID_SOLICITUD)
 )
 go
 
-insert into SOLICITUD(ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_TRASLADO, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD, HORA_SOLICITUD, APROBACION_SOLICITUD, VALOR_SOLICITUD)
-values(1, 1, 1, 1, '25','Mudanza','25/09/2016','8:00','Aprobada', 0.50 )
-insert into SOLICITUD(ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_TRASLADO, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD, HORA_SOLICITUD, APROBACION_SOLICITUD, VALOR_SOLICITUD)
-values(2, 2, 2, 2, '15','Organizacion Mobiliaria','20/09/2016','09:15','Aprobada', 0.50 )
-insert into SOLICITUD(ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_TRASLADO, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD, HORA_SOLICITUD, APROBACION_SOLICITUD, VALOR_SOLICITUD)
-values(3, 3, 3, 3, '10','Subida Artefacto','10/12/2016','11:00','Aprobada', 0.50 )
-insert into SOLICITUD(ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_TRASLADO, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD, HORA_SOLICITUD, APROBACION_SOLICITUD, VALOR_SOLICITUD)
-values(4, 4, 4, 4, '13','Bajada Muebles','31/12/2016','17:00','Rechazada', 0.50 )
-insert into SOLICITUD(ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_TRASLADO, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD, HORA_SOLICITUD, APROBACION_SOLICITUD, VALOR_SOLICITUD)
-values(5, 5, 5, 5, '07','Mudanza','01/08/2016','14:00','Aprobada', 0.50 )
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (1, 1, 1, 1,'20', 'Petición','12/12/2017');
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (2, 2, 2, 2,'50', 'Petición','16/06/2018');
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (3, 3, 3, 3,'33', 'Petición','17/04/2017');
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (4, 4, 4, 4,'45', 'Reclamo','16/04/2016');
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (5, 5, 5, 5,'60', 'Petición','25/12/2017');
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (6, 6, 6, 6,'85', 'Petición','15/08/2018');
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (7, 7, 7, 7,'100', 'Petición','13/08/2017');
+insert into SOLICITUD (ID_SOLICITUD, ID_CLIENTE, ID_SERVICIO, ID_SERVICIO_ADD, NUMERO_SOLICITUD, TIPO_SOLICITUD, FECHA_SOLICITUD)
+values (8, 8, 8, 8,'150', 'Petición','07/09/2019');
 
 
 /*==============================================================*/
@@ -779,10 +679,10 @@ ID_SERVICIO ASC
 go
 
 /*==============================================================*/
-/* Index: SOLICITUD_TRASLADO_FK                                 */
+/* Index: SERVICIO_ADISIONAL_SOLICITUD_FK                       */
 /*==============================================================*/
-create index SOLICITUD_TRASLADO_FK on SOLICITUD (
-ID_TRASLADO ASC
+create index SERVICIO_ADISIONAL_SOLICITUD_FK on SOLICITUD (
+ID_SERVICIO_ADD ASC
 )
 go
 
@@ -791,34 +691,48 @@ go
 /*==============================================================*/
 create table TRASLADO (
    ID_TRASLADO          int                  not null,
-   ID_OBSERVACION       int                  null,
-   HORA_TRASLADO        time             not null,
+   ID_SERVICIO          int                  null,
+   FECHA_TRASLADO       date	            null,
    PESO_TRASLADO        varchar(20)          not null,
-   VALOR_PESO           numeric(6,2)         not null,
    NUMERO_TRASL         varchar(10)          not null,
+   PROVINCIA_TRAS       varchar(30)          not null,
+   CANTO_TRAS           varchar(20)          not null,
+   PAIS_TRAS            varchar(20)          not null,
    constraint PK_TRASLADO primary key nonclustered (ID_TRASLADO)
 )
 go
 
-insert into TRASLADO(ID_TRASLADO,ID_OBSERVACION, HORA_TRASLADO, PESO_TRASLADO, VALOR_PESO,NUMERO_TRASL)
-values(1,1, '08:00','10.000 kg',150.00,'5')
-insert into TRASLADO(ID_TRASLADO,ID_OBSERVACION, HORA_TRASLADO, PESO_TRASLADO, VALOR_PESO,NUMERO_TRASL)
-values(2,2, '09:00','15.000 kg',200.00,'2')
-insert into TRASLADO(ID_TRASLADO,ID_OBSERVACION, HORA_TRASLADO, PESO_TRASLADO, VALOR_PESO,NUMERO_TRASL)
-values(3,3, '15:00','20.000 kg',250.00,'3')
-insert into TRASLADO(ID_TRASLADO,ID_OBSERVACION, HORA_TRASLADO, PESO_TRASLADO, VALOR_PESO,NUMERO_TRASL)
-values(4,4, '10:00','30.000 kg',450.00,'8')
-insert into TRASLADO(ID_TRASLADO,ID_OBSERVACION, HORA_TRASLADO, PESO_TRASLADO, VALOR_PESO,NUMERO_TRASL)
-values(5,5, '20:00','5.000 kg',100.00,'1')
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(1, 1, '15/11/2017','10.000 Kg','3','El  Oro','Manchala','Ecuador');
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(2, 2, '20/09/2017','500 Kg','2','Esmeralda','Quinindé','Ecuador');
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(3, 3, '10/12/2017','50.000 Kg','5','Guayas','Guayaquil','Ecuador');
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(4, 4, '20/1/2019','20.000 Kg','8','Ambato','Tungurahua','Ecuador');
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(5, 5, '05/02/2017','60.000 Kg','3','Loja','Azogues','Ecuador');
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(6, 6, '25/12/2017','80.000 Kg','1','Manabi','Chone','Ecuador');
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(7, 7, '28/02/2017','10.000 Kg','5','Pichincha','Quito','Ecuador');
+insert into TRASLADO (ID_TRASLADO, ID_SERVICIO, FECHA_TRASLADO, PESO_TRASLADO, NUMERO_TRASL, PROVINCIA_TRAS,CANTO_TRAS,PAIS_TRAS)
+values(8, 8, '01/10/2017','5.000 Kg','7','Los Rios','Quevedo','Ecuador');
 
 
+/*==============================================================*/
+/* Index: TRASLADO_SERVICIO_FK                                  */
+/*==============================================================*/
+create index TRASLADO_SERVICIO_FK on TRASLADO (
+ID_SERVICIO ASC
+)
+go
 
 /*==============================================================*/
 /* Table: VEHICULO                                              */
 /*==============================================================*/
 create table VEHICULO (
    ID_VEHICULO          int                  not null,
-   ID_MANTENIMIENTO     int                  null,
    CD_VEHICULO          varchar(10)          not null,
    TIPO_VEHICULO        varchar(20)          not null,
    PLACA_VEHICULO       varchar(10)          not null,
@@ -827,51 +741,71 @@ create table VEHICULO (
 )
 go
 
-insert into VEHICULO(ID_VEHICULO,ID_MANTENIMIENTO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
-values(1, 1,'1LKA10','Camionta 4x2','XYZ-2040','Rojo')
-insert into VEHICULO(ID_VEHICULO,ID_MANTENIMIENTO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
-values(2, 2,'2LMA11','Camionta 4x4','SYA-7546','Plata')
-insert into VEHICULO(ID_VEHICULO,ID_MANTENIMIENTO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
-values(3, 3,'3JLK12','Camion','DMS-9724','Azul')
-insert into VEHICULO(ID_VEHICULO,ID_MANTENIMIENTO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
-values(4, 4,'4ABC13','Traile','MAS-2021','Conchadevino')
-insert into VEHICULO(ID_VEHICULO,ID_MANTENIMIENTO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
-values(5, 5,'5MKB14','Camionta 4x4','DAS-7645','Rojo')
-insert into VEHICULO(ID_VEHICULO,ID_MANTENIMIENTO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
-values(6, 6,'6MNB15','Camionta 4x4','BMW-1121','Negro')
-
+insert into VEHICULO(ID_VEHICULO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
+values(1, 'ZKF22','Camioneta 4x2','LSKS-2004','Rojo');
+insert into VEHICULO(ID_VEHICULO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
+values(2, 'ABC00','Camioneta 4x4','MASA-2354','Negro');
+insert into VEHICULO(ID_VEHICULO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
+values(3, 'XYZ50','Camion','JASA-5020','Plateado');
+insert into VEHICULO(ID_VEHICULO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
+values(4, 'UFC21','Trailer','TRKQ-8888','Amarillo');
+insert into VEHICULO(ID_VEHICULO, CD_VEHICULO, TIPO_VEHICULO, PLACA_VEHICULO, COLOR_VEHICULO)
+values(5, 'WWE22','Camioneta 2x2','LSKS-2004','Verde');
 
 /*==============================================================*/
-/* Index: VEHICULO_MANTENIMIENTO_FK                             */
+/* Table: VEHICULO_SERVICIO                                     */
 /*==============================================================*/
-create index VEHICULO_MANTENIMIENTO_FK on VEHICULO (
-ID_MANTENIMIENTO ASC
+create table VEHICULO_SERVICIO (
+   ID_SERVICIO          int                  not null,
+   ID_VEHICULO          int                  not null,
+   constraint PK_VEHICULO_SERVICIO primary key nonclustered (ID_SERVICIO, ID_VEHICULO)
 )
 go
 
-alter table CLIENTE
-   add constraint FK_CLIENTE_SERVICIO__SERVICIO foreign key (ID_SERVICIO_ADD)
-      references SERVICIO_ADISIONAL (ID_SERVICIO_ADD)
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(1,1);
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(2,2);
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(3,3);
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(4,4);
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(5,5);
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(6,6);
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(7,7);
+insert into VEHICULO_SERVICIO(ID_SERVICIO, ID_VEHICULO)
+values(8,8);
+
+
+
+
+/*==============================================================*/
+/* Index: VEHICULO_SERVICIO2_FK                                 */
+/*==============================================================*/
+create index VEHICULO_SERVICIO2_FK on VEHICULO_SERVICIO (
+ID_VEHICULO ASC
+)
 go
 
-alter table COSTO_ESTIMADO
-   add constraint FK_COSTO_ES_COSTO_EST_VEHICULO foreign key (ID_VEHICULO)
-      references VEHICULO (ID_VEHICULO)
+/*==============================================================*/
+/* Index: VEHICULO_SERVICIO_FK                                  */
+/*==============================================================*/
+create index VEHICULO_SERVICIO_FK on VEHICULO_SERVICIO (
+ID_SERVICIO ASC
+)
 go
 
 alter table EMPLEADO
-   add constraint FK_EMPLEADO_EMPLEADO__EMPRESA foreign key (ID_EMPRESA)
+   add constraint FK_EMPLEADO_EMPRESA_E_EMPRESA foreign key (ID_EMPRESA)
       references EMPRESA (ID_EMPRESA)
 go
 
-alter table EMPLEADO
-   add constraint FK_EMPLEADO_PAGO_EMPL_PAGO foreign key (ID_PAGO)
-      references PAGO (ID_PAGO)
-go
-
-alter table INFORMACION_DESTINO
-   add constraint FK_INFORMAC_SOLICITUD_SOLICITU foreign key (ID_SOLICITUD)
-      references SOLICITUD (ID_SOLICITUD)
+alter table MANTENIMIENTO
+   add constraint FK_MANTENIM_MANTENIMI_VEHICULO foreign key (ID_VEHICULO)
+      references VEHICULO (ID_VEHICULO)
 go
 
 alter table OBSERVACION
@@ -879,14 +813,9 @@ alter table OBSERVACION
       references CLIENTE (ID_CLIENTE)
 go
 
-alter table PERSONAL_EXTRA_SERVICIO_ADICIONAL
+alter table PERSONAL_EXTRA
    add constraint FK_PERSONAL_PERSONAL__SERVICIO foreign key (ID_SERVICIO_ADD)
-      references SERVICIO_ADISIONAL (ID_SERVICIO_ADD)
-go
-
-alter table PERSONAL_EXTRA_SERVICIO_ADICIONAL
-   add constraint FK_PERSONAL_PERSONAL__PERSONAL foreign key (ID_PERSONAL)
-      references PERSONAL_EXTRA (ID_PERSONAL)
+      references SERVICIO_ADICIONAL (ID_SERVICIO_ADD)
 go
 
 alter table SERVICIO
@@ -895,8 +824,13 @@ alter table SERVICIO
 go
 
 alter table SERVICIO
-   add constraint FK_SERVICIO_VEHICULO__VEHICULO foreign key (ID_VEHICULO)
-      references VEHICULO (ID_VEHICULO)
+   add constraint FK_SERVICIO_EMPLEADO__EMPLEADO foreign key (ID_EMPLEADO)
+      references EMPLEADO (ID_EMPLEADO)
+go
+
+alter table SERVICIO
+   add constraint FK_SERVICIO_SERVICIO__PAGO foreign key (ID_PAGO)
+      references PAGO (ID_PAGO)
 go
 
 alter table SOLICITUD
@@ -905,28 +839,74 @@ alter table SOLICITUD
 go
 
 alter table SOLICITUD
+   add constraint FK_SOLICITU_SERVICIO__SERVICIO foreign key (ID_SERVICIO_ADD)
+      references SERVICIO_ADICIONAL (ID_SERVICIO_ADD)
+go
+
+alter table SOLICITUD
    add constraint FK_SOLICITU_SOLICITUD_SERVICIO foreign key (ID_SERVICIO)
       references SERVICIO (ID_SERVICIO)
 go
 
-alter table SOLICITUD
-   add constraint FK_SOLICITU_SOLICITUD_TRASLADO foreign key (ID_TRASLADO)
-      references TRASLADO (ID_TRASLADO)
+alter table TRASLADO
+   add constraint FK_TRASLADO_TRASLADO__SERVICIO foreign key (ID_SERVICIO)
+      references SERVICIO (ID_SERVICIO)
 go
 
-alter table VEHICULO
-   add constraint FK_VEHICULO_VEHICULO__MANTENIM foreign key (ID_MANTENIMIENTO)
-      references MANTENIMIENTO (ID_MANTENIMIENTO)
+alter table VEHICULO_SERVICIO
+   add constraint FK_VEHICULO_VEHICULO__SERVICIO foreign key (ID_SERVICIO)
+      references SERVICIO (ID_SERVICIO)
 go
 
-/*Indique por provincia cuanto a genereado de ingreso la empresa*/
-select PROVINCIA,NOMBRE_EMPRESA,TOTAL_SERVICIO, TIPO_SERVICIO from EMPRESA, INFORMACION_DESTINO inner join SERVICIO
-ON  SERVICIO.ID_SERVICIO = INFORMACION_DESTINO.ID_DESTINO
-WHERE INFORMACION_DESTINO.PROVINCIA= PROVINCIA
-GROUP BY PROVINCIA,NOMBRE_EMPRESA,TOTAL_SERVICIO,TIPO_SERVICIO
-ORDER BY PROVINCIA;
+alter table VEHICULO_SERVICIO
+   add constraint FK_VEHICULO_VEHICULO__VEHICULO foreign key (ID_VEHICULO)
+      references VEHICULO (ID_VEHICULO)
+go
 
-select * from INFORMACION_DESTINO;
-select * from EMPRESA;
-select * from SERVICIO;
-select * from TRASLADO;
+
+
+/* MOSTRAR POR PROVINCIA CUANTO A GENERADO DE INGRESO LA EMPRESA*/
+
+SELECT 
+NOMBRE_EMPRESA, PROVINCIA_TRAS,
+sum( PRECIO_SERVICIO *VALOR_PESO ) as Ingreso_Mensual
+from EMPRESA,SERVICIO inner join  TRASLADO
+ON  SERVICIO.ID_SERVICIO = ID_TRASLADO
+WHERE SERVICIO.ID_SERVICIO = TRASLADO.ID_TRASLADO
+GROUP BY PROVINCIA_TRAS ,NOMBRE_EMPRESA
+ORDER BY Ingreso_Mensual;
+
+
+
+/* MOSTRAR EL NUMERO DE MANTENIMIENTOS QUE LOS VEHICULO HAN RECIBIDO EN LA EMPRESA*/
+
+SELECT NOMBRE_EMPRESA, CD_VEHICULO, PLACA_VEHICULO, NUMERO_MANT, TIPO_MANT, COLOR_VEHICULO, TIPO_VEHICULO
+FROM EMPRESA, VEHICULO inner join MANTENIMIENTO 
+ON  VEHICULO.ID_VEHICULO=MANTENIMIENTO.ID_MANTENIMIENTO
+WHERE MANTENIMIENTO.NUMERO_MANT='5'
+GROUP BY CD_VEHICULO, PLACA_VEHICULO, NUMERO_MANT, TIPO_MANT, COLOR_VEHICULO, TIPO_VEHICULO, NOMBRE_EMPRESA
+ORDER BY CD_VEHICULO;
+
+
+
+/* INDICAL, EL PERSONAL EXTRA EN CUANTAS TAREAS DE MUDANZA A ASISTIDO*/
+
+SELECT APELLIDO_PERSONAL, NOMBRE_PERSONAL, CEDULA_PERSONAL, APELLIDO_PERSONAL, NUMERO_TRASL
+FROM PERSONAL_EXTRA inner join TRASLADO
+ON TRASLADO.ID_TRASLADO=PERSONAL_EXTRA.ID_PERSONAL
+WHERE PERSONAL_EXTRA.APELLIDO_PERSONAL= APELLIDO_PERSONAL
+GROUP BY NOMBRE_PERSONAL, CEDULA_PERSONAL, APELLIDO_PERSONAL, NUMERO_TRASL
+ORDER BY NUMERO_TRASL;
+
+
+
+/* MUESTRE EL TOP DE LOS EMPLEADOS QUE HA TRABAJADO EN TAREAS DE MUDANZA Y QUIENES HAN OBTENIDOS OBSERVACIONES SASTIFACTORIAS*/
+
+SELECT TOP (3) NOMBRES_EMPLEADO, CALIFICACION, OPINION 
+FROM EMPLEADO INNER JOIN OBSERVACION
+ON EMPLEADO.ID_EMPLEADO=OBSERVACION.ID_OBSERVACION
+WHERE OBSERVACION.OPINION='EXCELENTE' OR OBSERVACION.OPINION= 'MUY BUENO' 
+GROUP BY NOMBRES_EMPLEADO, CALIFICACION, OPINION 
+ORDER BY OPINION ;
+
+
