@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MUDANZA EMPRESA" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81863166-b5b2-4605-9bd5-fccba52ed673">
+	<property name="ireport.zoom" value="1.5000000000000024"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="267"/>
+	<queryString>
+		<![CDATA[SELECT
+     servicio."tipo_servicio",
+     servicio."precio_servicio",
+     servicio."fecha_servicio",
+     cliente."nombre_cliente",
+     cliente."apellidos_cliente" AS cliente_apellidos_cliente,
+     servicio."total_servicio" AS servicio_total_servicio,
+     cliente."cedula_indent_cliente" AS cliente_cedula_indent_cliente
+FROM
+     "servicio" servicio INNER JOIN "cliente" cliente ON servicio."id_servicio" = cliente."id_cliente"
+WHERE servicio.TIPO_SERVICIO='Traslados de llantas'
+or servicio.TIPO_SERVICIO='Traslados de Reliquias'
+or servicio.TIPO_SERVICIO='Traslados de sillas'
+or servicio.TIPO_SERVICIO='Traslado de cuadros'
+
+ORDER BY
+     cliente.nombre_cliente ASC]]>
+	</queryString>
+	<field name="tipo_servicio" class="java.lang.String"/>
+	<field name="precio_servicio" class="java.math.BigDecimal"/>
+	<field name="fecha_servicio" class="java.sql.Date"/>
+	<field name="nombre_cliente" class="java.lang.String"/>
+	<field name="cliente_apellidos_cliente" class="java.lang.String"/>
+	<field name="servicio_total_servicio" class="java.math.BigDecimal"/>
+	<field name="cliente_cedula_indent_cliente" class="java.lang.String"/>
+	<group name="tipo_servicio">
+		<groupExpression><![CDATA[$F{tipo_servicio}]]></groupExpression>
+	</group>
+	<group name="precio_servicio">
+		<groupExpression><![CDATA[$F{precio_servicio}]]></groupExpression>
+	</group>
+	<group name="fecha_servicio">
+		<groupExpression><![CDATA[$F{fecha_servicio}]]></groupExpression>
+	</group>
+	<group name="nombre_cliente">
+		<groupExpression><![CDATA[$F{nombre_cliente}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="258" height="24" uuid="32877558-7c67-4340-948a-55652f480096"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" size="15" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Empresa de Mudanza "Los Santos"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="48" width="77" height="20" uuid="2fc251c9-12ca-40af-92b6-cef153768156"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estudiantes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="48" width="181" height="20" uuid="88cf675d-ea1f-4eb8-9526-0303a59b136a"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="12"/>
+				</textElement>
+				<text><![CDATA[Sánchez Arteaga Miguel Angel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="7" width="73" height="41" forecolor="#990000" uuid="0b3a0b83-8064-450c-994a-194213987e2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Comic Sans MS" size="24" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[5 "B"]]></text>
+			</staticText>
+			<image>
+				<reportElement x="365" y="0" width="190" height="68" uuid="7d56e423-0e5b-4326-a2bb-6d6c758b1c3a"/>
+				<imageExpression><![CDATA["C:\\Users\\COMPU-TEACH\\OneDrive - ULEAM\\Uleam - Materias\\logo_ULEAM_2017_horizontal.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="97" y="25" width="38" height="20" uuid="bd2873cd-9fb1-4acb-b2c3-6417e7988c9a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="87" height="20" uuid="59671781-1ee2-40e9-8b8d-3ba890bde2d3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula Indentidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="25" width="72" height="20" uuid="4b36e442-7c25-4ee2-8759-588c4c75295b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="25" width="106" height="20" uuid="841375e7-8b70-47f1-802b-7622ac64c701"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y Hora Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="25" width="72" height="20" uuid="9ebceddf-4f7b-4c13-bc66-92dfa969d38e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio Servicio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="97" y="0" width="100" height="20" uuid="7bc03a7f-769e-45dd-8e24-166b2df45e8a"/>
+				<textFieldExpression><![CDATA[$F{nombre_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="b7042cdc-e3e8-4542-9dc0-420ccc9de223"/>
+				<textFieldExpression><![CDATA[$F{cliente_cedula_indent_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="0" width="72" height="20" uuid="18c1f41e-b5f1-4629-a731-6d546181aa04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{precio_servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="0" width="92" height="20" uuid="be4bc03a-bb8c-4dff-a338-7c3a8a606bc4"/>
+				<textFieldExpression><![CDATA[$F{fecha_servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="0" width="164" height="20" uuid="61721ee7-8916-4797-aa57-047c0a4dfdac"/>
+				<textFieldExpression><![CDATA[$F{tipo_servicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="401" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="0" y="208" width="555" height="171" uuid="428c87b6-a3e6-40de-8863-f859bae65e68"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{tipo_servicio}]]></keyExpression>
+					<valueExpression><![CDATA[$F{servicio_total_servicio}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<line>
+				<reportElement x="0" y="194" width="555" height="1" uuid="a4171cc2-2ba2-4397-96fa-65ddc079259b"/>
+			</line>
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="555" height="182" uuid="4e592e69-40b4-493e-a6da-3f047499ebd3"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{fecha_servicio}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nombre_cliente}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{precio_servicio}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>
